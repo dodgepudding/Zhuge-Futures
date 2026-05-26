@@ -1,0 +1,6 @@
+{
+  "name": "诸葛期指",
+  "description": "Futures real-time market tracker with alerts and position simulation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
