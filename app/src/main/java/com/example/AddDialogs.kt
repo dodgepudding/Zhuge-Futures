@@ -36,72 +36,72 @@ fun AddAlertDialog(
             Column(modifier = Modifier.padding(24.dp)) {
                 Text("添加监控条件", style = MaterialTheme.typography.titleLarge)
                 Spacer(modifier = Modifier.height(16.dp))
-                
-                ExposedDropdownMenuBox(expanded = expandedSymbol, onExpandedChange = { expandedSymbol = !expandedSymbol }) {
-                    OutlinedTextField(
-                        value = selectedSymbol,
-                        onValueChange = {},
-                        readOnly = true,
-                        label = { Text("合约代码") },
-                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedSymbol) },
-                        modifier = Modifier.menuAnchor().fillMaxWidth()
-                    )
-                    ExposedDropdownMenu(expanded = expandedSymbol, onDismissRequest = { expandedSymbol = false }) {
-                        assets.forEach { asset ->
-                            DropdownMenuItem(
-                                text = { Text(asset.symbol) },
-                                onClick = {
-                                    selectedSymbol = asset.symbol
-                                    expandedSymbol = false
-                                }
-                            )
-                        }
-                    }
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-                
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-                        RadioButton(
-                            selected = selectedCondition == ConditionType.PRICE_ABOVE,
-                            onClick = { selectedCondition = ConditionType.PRICE_ABOVE }
-                        )
-                        Text("涨破 (>=)")
-                    }
-                    Spacer(modifier = Modifier.width(16.dp))
-                    Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
-                        RadioButton(
-                            selected = selectedCondition == ConditionType.PRICE_BELOW,
-                            onClick = { selectedCondition = ConditionType.PRICE_BELOW }
-                        )
-                        Text("跌破 (<=)")
-                    }
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-                
+            
+            ExposedDropdownMenuBox(expanded = expandedSymbol, onExpandedChange = { expandedSymbol = !expandedSymbol }) {
                 OutlinedTextField(
-                    value = priceText,
-                    onValueChange = { priceText = it },
-                    label = { Text("目标价") },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    modifier = Modifier.fillMaxWidth()
+                    value = selectedSymbol,
+                    onValueChange = {},
+                    readOnly = true,
+                    label = { Text("合约代码") },
+                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedSymbol) },
+                    modifier = Modifier.menuAnchor().fillMaxWidth()
                 )
-                Spacer(modifier = Modifier.height(24.dp))
-                
-                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                    TextButton(onClick = onDismiss) { Text("取消") }
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Button(onClick = {
-                        val price = priceText.toDoubleOrNull()
-                        if (price != null) {
-                            onAdd(selectedSymbol, selectedCondition, price)
-                            onDismiss()
-                        }
-                    }) {
-                        Text("保存")
+                ExposedDropdownMenu(expanded = expandedSymbol, onDismissRequest = { expandedSymbol = false }) {
+                    assets.forEach { asset ->
+                        DropdownMenuItem(
+                            text = { Text(asset.symbol) },
+                            onClick = {
+                                selectedSymbol = asset.symbol
+                                expandedSymbol = false
+                            }
+                        )
                     }
                 }
             }
+            Spacer(modifier = Modifier.height(16.dp))
+            
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                    RadioButton(
+                        selected = selectedCondition == ConditionType.PRICE_ABOVE,
+                        onClick = { selectedCondition = ConditionType.PRICE_ABOVE }
+                    )
+                    Text("涨破 (>=)")
+                }
+                Spacer(modifier = Modifier.width(16.dp))
+                Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                    RadioButton(
+                        selected = selectedCondition == ConditionType.PRICE_BELOW,
+                        onClick = { selectedCondition = ConditionType.PRICE_BELOW }
+                    )
+                    Text("跌破 (<=)")
+                }
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            
+            OutlinedTextField(
+                value = priceText,
+                onValueChange = { priceText = it },
+                label = { Text("目标价") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+            
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                TextButton(onClick = onDismiss) { Text("取消") }
+                Spacer(modifier = Modifier.width(8.dp))
+                Button(onClick = {
+                    val price = priceText.toDoubleOrNull()
+                    if (price != null) {
+                        onAdd(selectedSymbol, selectedCondition, price)
+                        onDismiss()
+                    }
+                }) {
+                    Text("保存")
+                }
+            }
+        }
         }
     }
 }

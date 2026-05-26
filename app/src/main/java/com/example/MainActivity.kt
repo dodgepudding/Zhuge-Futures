@@ -96,13 +96,17 @@ fun FuturesDashboard(viewModel: FuturesViewModel, onNavigateToChart: (String) ->
             TopAppBar(
                 title = { Text("诸葛期指", fontWeight = FontWeight.Bold) },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimary
                 )
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { showAddAlertSheet = true }) {
+            FloatingActionButton(
+                onClick = { showAddAlertSheet = true },
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
+            ) {
                 Icon(Icons.Default.Add, contentDescription = "添加监控")
             }
         }

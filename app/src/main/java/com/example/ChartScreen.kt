@@ -43,8 +43,10 @@ fun ChartScreen(asset: FuturesAsset, onBack: () -> Unit, onTrade: (PositionType,
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
+                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
+                    actionIconContentColor = MaterialTheme.colorScheme.onPrimary
                 )
             )
         },
@@ -123,70 +125,70 @@ fun TradeBottomSheet(
             color = MaterialTheme.colorScheme.surface,
             tonalElevation = 6.dp
         ) {
-            Column(modifier = Modifier.padding(24.dp)) {
+            Column(modifier = Modifier.padding(24.dp).padding(bottom = 16.dp)) {
                 Text("交易 ${asset.symbol}", style = MaterialTheme.typography.titleLarge)
                 Spacer(modifier = Modifier.height(16.dp))
-                
-                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                    OutlinedButton(
-                        onClick = { type = PositionType.LONG },
-                        modifier = Modifier.weight(1f),
-                        colors = ButtonDefaults.outlinedButtonColors(
-                            containerColor = if (type == PositionType.LONG) Color(0xFF4CAF50).copy(alpha = 0.2f) else Color.Transparent,
-                            contentColor = if (type == PositionType.LONG) Color(0xFF4CAF50) else MaterialTheme.colorScheme.onSurface
-                        ),
-                        border = BorderStroke(1.dp, if (type == PositionType.LONG) Color(0xFF4CAF50) else MaterialTheme.colorScheme.outline)
-                    ) {
-                        Text("做多 (Long)")
-                    }
-                    OutlinedButton(
-                        onClick = { type = PositionType.SHORT },
-                        modifier = Modifier.weight(1f),
-                        colors = ButtonDefaults.outlinedButtonColors(
-                            containerColor = if (type == PositionType.SHORT) Color(0xFFE53935).copy(alpha = 0.2f) else Color.Transparent,
-                            contentColor = if (type == PositionType.SHORT) Color(0xFFE53935) else MaterialTheme.colorScheme.onSurface
-                        ),
-                        border = BorderStroke(1.dp, if (type == PositionType.SHORT) Color(0xFFE53935) else MaterialTheme.colorScheme.outline)
-                    ) {
-                        Text("做空 (Short)")
-                    }
-                }
-                
-                Spacer(modifier = Modifier.height(16.dp))
-                
-                OutlinedTextField(
-                    value = qtyText,
-                    onValueChange = { qtyText = it },
-                    label = { Text("数量 (手)") },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    modifier = Modifier.fillMaxWidth()
-                )
-                
-                Spacer(modifier = Modifier.height(16.dp))
-                
-                OutlinedTextField(
-                    value = leverageText,
-                    onValueChange = { leverageText = it },
-                    label = { Text("杠杆倍数 (x)") },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    modifier = Modifier.fillMaxWidth()
-                )
-
-                Spacer(modifier = Modifier.height(24.dp))
-                
-                val isLong = type == PositionType.LONG
-                Button(
-                    onClick = {
-                        val qty = qtyText.toIntOrNull() ?: 1
-                        val lev = leverageText.toIntOrNull() ?: 1
-                        onConfirm(type, qty, lev)
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(containerColor = if (isLong) Color(0xFF4CAF50) else Color(0xFFE53935))
+            
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                OutlinedButton(
+                    onClick = { type = PositionType.LONG },
+                    modifier = Modifier.weight(1f),
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        containerColor = if (type == PositionType.LONG) Color(0xFF4CAF50).copy(alpha = 0.2f) else Color.Transparent,
+                        contentColor = if (type == PositionType.LONG) Color(0xFF4CAF50) else MaterialTheme.colorScheme.onSurface
+                    ),
+                    border = BorderStroke(1.dp, if (type == PositionType.LONG) Color(0xFF4CAF50) else MaterialTheme.colorScheme.outline)
                 ) {
-                    Text(if (isLong) "确认做多" else "确认做空", color = Color.White)
+                    Text("做多 (Long)")
+                }
+                OutlinedButton(
+                    onClick = { type = PositionType.SHORT },
+                    modifier = Modifier.weight(1f),
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        containerColor = if (type == PositionType.SHORT) Color(0xFFE53935).copy(alpha = 0.2f) else Color.Transparent,
+                        contentColor = if (type == PositionType.SHORT) Color(0xFFE53935) else MaterialTheme.colorScheme.onSurface
+                    ),
+                    border = BorderStroke(1.dp, if (type == PositionType.SHORT) Color(0xFFE53935) else MaterialTheme.colorScheme.outline)
+                ) {
+                    Text("做空 (Short)")
                 }
             }
+            
+            Spacer(modifier = Modifier.height(16.dp))
+            
+            OutlinedTextField(
+                value = qtyText,
+                onValueChange = { qtyText = it },
+                label = { Text("数量 (手)") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                modifier = Modifier.fillMaxWidth()
+            )
+            
+            Spacer(modifier = Modifier.height(16.dp))
+            
+            OutlinedTextField(
+                value = leverageText,
+                onValueChange = { leverageText = it },
+                label = { Text("杠杆倍数 (x)") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+            
+            val isLong = type == PositionType.LONG
+            Button(
+                onClick = {
+                    val qty = qtyText.toIntOrNull() ?: 1
+                    val lev = leverageText.toIntOrNull() ?: 1
+                    onConfirm(type, qty, lev)
+                },
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(containerColor = if (isLong) Color(0xFF4CAF50) else Color(0xFFE53935))
+            ) {
+                Text(if (isLong) "确认做多" else "确认做空", color = Color.White)
+            }
+        }
         }
     }
 }

@@ -1,21 +1,35 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# 诸葛期指 (ZhuGe Futures)
 
-# Run and deploy your AI Studio app
+**[English](#english) | [中文](#chinese)**
 
-This contains everything you need to run your app locally.
+<a name="chinese"></a>
+## 简介 (Introduction in Chinese)
+**诸葛期指** 是一款使用 Kotlin 和 Jetpack Compose 开发的现代原生 Android 商业级应用。它旨在为期货交易者提供直观的大盘行情查看、模拟交易、实时价格预警以及自选持仓管理功能。通过简洁大气、高度扁平化的原生视觉设计，为用户提供沉浸式的移动端金融交易体验。
 
-View your app in AI Studio: https://ai.studio/apps/0d29b794-ee09-4c20-8a68-5412c9e49791
+**本项目是一个完全开源的项目 (Open Source Project)**，欢迎任何形式的代码贡献和使用体验反馈。
 
-## Run Locally
+### 核心功能体系
+- **行情追踪 (Market Tracking)**: 支持按图表类型 (5分钟、15分钟、日K等) 查看实时绘制的K线图。
+- **自定义自选 (Watchlist)**: 内置搜索功能快速查找标的（如纳指、原油、黄金等）并加入自选列表。
+- **模拟交易 (Paper Trading)**: 支持进行做多/做空模拟开仓，可以自定义手数和杠杆倍率并实时计算浮亏浮盈 (PnL)。
+- **智能预警 (Price Alerts)**: 可对指定合约设定价格警报，在涨破或跌破特定价格时进行提示。
 
-**Prerequisites:**  [Android Studio](https://developer.android.com/studio)
+---
 
+<a name="english"></a>
+## Introduction (in English)
+**ZhuGe Futures** is a modern, native Android application built entirely with Kotlin and Jetpack Compose. It aims to provide futures traders with an intuitive platform for monitoring market trends, executing paper trades, setting up real-time price alerts, and managing a personalized portfolio. It features a clean, highly flat, and atmospheric UI design to ensure an immersive financial tracking experience.
 
-1. Open Android Studio
-2. Select **Open** and choose the directory containing this project
-3. Allow Android Studio to fix any incompatibilities as it imports the project.
-4. Create a file named `.env` in the project directory and set `GEMINI_API_KEY` in that file to your Gemini API key (see `.env.example` for an example)
-5. Remove this line from the app's `build.gradle.kts` file: `signingConfig = signingConfigs.getByName("debugConfig")`
-6. Run the app on an emulator or physical device
+**This is a fully Open-Source project.** We welcome contributions, feedback, and forks from the community.
+
+### Key Features
+- **Real-Time K-Line Charts**: Interactive candlestick charts with multiple timeframes (5m, 15m, Hourly, Daily).
+- **Custom Watchlist**: Search and add various assets (like NASDAQ, Crude Oil, Gold, etc.) to your customized watchlist.
+- **Paper Trading Simulator**: Execute simulated Long and Short positions. Select your order size and leverage margin to analyze real-time Profit and Loss (PnL).
+- **Smart Alerts**: Configure conditional triggers (above/below targets) to get notified when assets break through key price levels.
+
+## Tech Stack
+- **Language**: Kotlin 
+- **UI Framework**: Jetpack Compose (Material Design 3)
+- **Architecture**: MVVM
+- **Navigation**: Navigation Compose
